@@ -1,0 +1,7 @@
+{
+    "objects": ["cube","cube","sphere","cylinder"],
+    "cobjects": ["gray","red","blue","brown"],
+    "robjects": [0,0,0,0],
+    "sobjects": [0.5,0.8,0.5,0.4],
+    "locobjects":[[0,-4],[4,0],[0,4],[-4,0]]
+  }

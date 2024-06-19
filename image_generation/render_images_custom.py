@@ -9,7 +9,6 @@ from __future__ import print_function
 import math, sys, random, argparse, json, os, tempfile
 from datetime import datetime as dt
 from collections import Counter
-
 """
 Renders random scenes using Blender, each with with a random number of objects;
 each object has a random size, position, color, and shape. Objects will be
@@ -62,13 +61,20 @@ parser.add_argument('--shape_color_combos_json', default=None,
     help="Optional path to a JSON file mapping shape names to a list of " +
          "allowed color names for that shape. This allows rendering images " +
          "for CLEVR-CoGenT.")
-
+def coords(s):
+    try:
+        x, y = map(int, s.split(','))
+        return x, y
+    except:
+        raise argparse.ArgumentTypeError("Coordinates must be x,y,z")
 # Settings for objects
 parser.add_argument('--objects',nargs="+",default=["circle"],type=str,help="Types of objects in order")
 parser.add_argument('--cobjects',nargs="+",default=['red'],type=str,help="Color of objects in order")
 parser.add_argument('--robjects',nargs="+",default=[0],type=int,help="Rotation of objects in order")
-parser.add_argument('--sobjects',nargs="+",default=[0],type=int,help="Scale of objects in order")
-parser.add_argument('--locobjects',nargs="+",default=[(0,0)],type=tuple,help="Location of objects in order")
+parser.add_argument('--sobjects',nargs="+",default=[0],type=float,help="Scale of objects in order")
+parser.add_argument('--locobjects',nargs="+",default=[(0,0)],type=coords,help="Location of objects in order")
+
+parser.add_argument('--objs_config',help="config file for object generation")
 
 parser.add_argument('--min_dist', default=0.25, type=float,
     help="The minimum allowed distance between object centers")
@@ -125,6 +131,9 @@ parser.add_argument('--date', default=dt.today().strftime("%m/%d/%Y"),
          "defaults to today's date")
 
 # Rendering options
+parser.add_argument('--cam_x', default=0.0, type=float, help="camera x pos")
+parser.add_argument('--cam_y', default=-7.0, type=float, help="camera y pos")
+parser.add_argument('--cam_z', default=10, type=float, help="camera z pos")
 parser.add_argument('--use_gpu', default=0, type=int,
     help="Setting --use_gpu 1 enables GPU-accelerated rendering using CUDA. " +
          "You must have an NVIDIA GPU with the CUDA toolkit installed for " +
@@ -268,12 +277,16 @@ def render_scene(args,
     return 2.0 * L * (random.random() - 0.5)
 
   # Add random jitter to camera position
-  if args.camera_jitter > 0:
-    for i in range(3):
-      bpy.data.objects['Camera'].location[i] += rand(args.camera_jitter)
+  # if args.camera_jitter > 0:
+  #   for i in range(3):
+  #     bpy.data.objects['Camera'].location[i] += rand(args.camera_jitter)
 
   # Figure out the left, up, and behind directions along the plane and record
   # them in the scene structure
+  bpy.data.objects['Camera'].location[0]=args.cam_x
+  bpy.data.objects['Camera'].location[1]=args.cam_y
+  bpy.data.objects['Camera'].location[2]=args.cam_z
+  #bpy.data.objects['Camera'].location[2]=0.0
   camera = bpy.data.objects['Camera']
   plane_normal = plane.data.vertices[0].normal
   cam_behind = camera.matrix_world.to_quaternion() * Vector((0, 0, -1))
@@ -296,15 +309,15 @@ def render_scene(args,
   scene_struct['directions']['below'] = tuple(-plane_up)
 
   # Add random jitter to lamp positions
-  if args.key_light_jitter > 0:
-    for i in range(3):
-      bpy.data.objects['Lamp_Key'].location[i] += rand(args.key_light_jitter)
-  if args.back_light_jitter > 0:
-    for i in range(3):
-      bpy.data.objects['Lamp_Back'].location[i] += rand(args.back_light_jitter)
-  if args.fill_light_jitter > 0:
-    for i in range(3):
-      bpy.data.objects['Lamp_Fill'].location[i] += rand(args.fill_light_jitter)
+  # if args.key_light_jitter > 0:
+  #   for i in range(3):
+  #     bpy.data.objects['Lamp_Key'].location[i] += rand(args.key_light_jitter)
+  # if args.back_light_jitter > 0:
+  #   for i in range(3):
+  #     bpy.data.objects['Lamp_Back'].location[i] += rand(args.back_light_jitter)
+  # if args.fill_light_jitter > 0:
+  #   for i in range(3):
+  #     bpy.data.objects['Lamp_Fill'].location[i] += rand(args.fill_light_jitter)
 
   # Now make some random objects
   objects, blender_objects = add_objects(scene_struct, num_objects, args, camera)
@@ -353,7 +366,12 @@ def add_objects(scene_struct, num_objects, args, camera):
   for i in range(num_objects):
     # Choose a random size
     size_name, r = random.choice(size_mapping)
-
+    scale=args.sobjects[i]
+    color=args.cobjects[i]
+    obj=args.objects[i]
+    rotate=args.robjects[i]
+    loc=args.locobjects[i]
+    
     # Try to place the object, ensuring that we don't intersect any existing
     # objects and that we are more than the desired margin away from all existing
     # objects along all cardinal directions.
@@ -365,9 +383,12 @@ def add_objects(scene_struct, num_objects, args, camera):
       if num_tries > args.max_retries:
         for obj in blender_objects:
           utils.delete_object(obj)
-        return add_random_objects(scene_struct, num_objects, args, camera)
+        return add_objects(scene_struct, num_objects, args, camera)
       x = random.uniform(-3, 3)
       y = random.uniform(-3, 3)
+      x = loc[0]
+      y = loc[1]
+
       # Check to make sure the new object is further than min_dist from all
       # other objects, and further than margin along the four cardinal directions
       dists_good = True
@@ -402,16 +423,18 @@ def add_objects(scene_struct, num_objects, args, camera):
       color_name = random.choice(color_choices)
       obj_name = [k for k, v in object_mapping if v == obj_name_out][0]
       rgba = color_name_to_rgba[color_name]
-
+    obj=properties['shapes'][obj]
+    rgba = color_name_to_rgba[color]
     # For cube, adjust the size a bit
     if obj_name == 'Cube':
       r /= math.sqrt(2)
 
     # Choose random orientation for the object.
     theta = 360.0 * random.random()
-
+    theta = rotate
     # Actually add the object to the scene
-    utils.add_object(args.shape_dir, obj_name, r, (x, y), theta=theta)
+    print(obj_name)
+    utils.add_object(args.shape_dir, obj, scale, (x, y), theta=theta)
     obj = bpy.context.object
     blender_objects.append(obj)
     positions.append((x, y, r))
@@ -440,7 +463,7 @@ def add_objects(scene_struct, num_objects, args, camera):
     print('Some objects are occluded; replacing objects')
     for obj in blender_objects:
       utils.delete_object(obj)
-    return add_random_objects(scene_struct, num_objects, args, camera)
+    return add_objects(scene_struct, num_objects, args, camera)
 
   return objects, blender_objects
 
@@ -559,12 +582,20 @@ def render_shadeless(blender_objects, path='flat.png'):
 
   return object_colors
 
-
+import json
 if __name__ == '__main__':
   if INSIDE_BLENDER:
     # Run normally
     argv = utils.extract_args()
     args = parser.parse_args(argv)
+    
+    if args.objs_config:
+      with open(args.objs_config, 'rt') as f:
+          argparse_dict = vars(args)
+          print(args)
+          argparse_dict.update(json.load(f))
+          print(args)
+    #print(args.locobjects)
     main(args)
   elif '--help' in sys.argv or '-h' in sys.argv:
     parser.print_help()
