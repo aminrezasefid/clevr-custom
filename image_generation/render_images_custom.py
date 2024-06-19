@@ -64,11 +64,12 @@ parser.add_argument('--shape_color_combos_json', default=None,
          "for CLEVR-CoGenT.")
 
 # Settings for objects
-parser.add_argument('--objects',nargs="+",default="circle",type=str)
-parser.add_argument('--min_objects', default=3, type=int,
-    help="The minimum number of objects to place in each scene")
-parser.add_argument('--max_objects', default=10, type=int,
-    help="The maximum number of objects to place in each scene")
+parser.add_argument('--objects',nargs="+",default=["circle"],type=str,help="Types of objects in order")
+parser.add_argument('--cobjects',nargs="+",default=['red'],type=str,help="Color of objects in order")
+parser.add_argument('--robjects',nargs="+",default=[0],type=int,help="Rotation of objects in order")
+parser.add_argument('--sobjects',nargs="+",default=[0],type=int,help="Scale of objects in order")
+parser.add_argument('--locobjects',nargs="+",default=[(0,0)],type=tuple,help="Location of objects in order")
+
 parser.add_argument('--min_dist', default=0.25, type=float,
     help="The minimum allowed distance between object centers")
 parser.add_argument('--margin', default=0.4, type=float,
@@ -178,9 +179,7 @@ def main(args):
     blend_path = None
     if args.save_blendfiles == 1:
       blend_path = blend_template % (i + args.start_idx)
-    num_objects = random.randint(args.min_objects, args.max_objects)
     render_scene(args,
-      num_objects=num_objects,
       output_index=(i + args.start_idx),
       output_split=args.split,
       output_image=img_path,
@@ -209,7 +208,6 @@ def main(args):
 
 
 def render_scene(args,
-    num_objects=5,
     output_index=0,
     output_split='none',
     output_image='render.png',
@@ -221,6 +219,7 @@ def render_scene(args,
   bpy.ops.wm.open_mainfile(filepath=args.base_scene_blendfile)
 
   # Load materials
+  num_objects=len(args.objects)
   utils.load_materials(args.material_dir)
 
   # Set render arguments so we can get pixel coordinates later.
@@ -308,7 +307,7 @@ def render_scene(args,
       bpy.data.objects['Lamp_Fill'].location[i] += rand(args.fill_light_jitter)
 
   # Now make some random objects
-  objects, blender_objects = add_random_objects(scene_struct, num_objects, args, camera)
+  objects, blender_objects = add_objects(scene_struct, num_objects, args, camera)
 
   # Render the scene and dump the scene data structure
   scene_struct['objects'] = objects
@@ -327,7 +326,7 @@ def render_scene(args,
     bpy.ops.wm.save_as_mainfile(filepath=output_blendfile)
 
 
-def add_random_objects(scene_struct, num_objects, args, camera):
+def add_objects(scene_struct, num_objects, args, camera):
   """
   Add random objects to the current blender scene
   """
