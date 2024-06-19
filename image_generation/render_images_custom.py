@@ -140,7 +140,7 @@ parser.add_argument('--use_gpu', default=0, type=int,
          "to work.")
 parser.add_argument('--width', default=320, type=int,
     help="The width (in pixels) for the rendered images")
-parser.add_argument('--height', default=240, type=int,
+parser.add_argument('--height', default=320, type=int,
     help="The height (in pixels) for the rendered images")
 parser.add_argument('--key_light_jitter', default=1.0, type=float,
     help="The magnitude of random jitter to add to the key light position.")
