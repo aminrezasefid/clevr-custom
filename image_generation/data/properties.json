@@ -8,7 +8,8 @@
     "heart":"Heart",
     "cone":"Cone",
     "pyramid":"Pyramid",
-    "diamond":"Diamond"
+    "diamond":"Diamond",
+    "moon":"Moon"
   },
   "colors": {
     "gray": [87, 87, 87],

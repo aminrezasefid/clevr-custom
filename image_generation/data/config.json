@@ -1,5 +1,5 @@
 {
-  "objects": ["diamond","heart","cone","pyramid"],
+  "objects": ["diamond","moon","cone","pyramid"],
   "cobjects": ["gray","red","blue","brown"],
   "robjects": [0,0,0,0],
   "sobjects": [0.7,0.7,0.7,0.7],
