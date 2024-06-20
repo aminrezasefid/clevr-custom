@@ -7,7 +7,8 @@
     "pentagon":"Pentagon",
     "heart":"Heart",
     "cone":"Cone",
-    "pyramid":"Pyramid"
+    "pyramid":"Pyramid",
+    "diamond":"Diamond"
   },
   "colors": {
     "gray": [87, 87, 87],
