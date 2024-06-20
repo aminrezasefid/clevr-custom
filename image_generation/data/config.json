@@ -3,5 +3,5 @@
   "cobjects": ["gray","red","blue","brown"],
   "robjects": [0,0,0,0],
   "sobjects": [0.7,0.7,0.7,0.7],
-  "locobjects":[[-4,2.5],[4,2.5],[-4,-2.5],[4,-2.5]]
+  "locobjects":[[-4,4],[4,4],[-4,-4],[4,-4]]
 }

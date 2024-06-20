@@ -166,7 +166,25 @@ parser.add_argument('--render_tile_size', default=256, type=int,
 def main(args):
   num_digits = 6
   prefix = '%s_%s_' % (args.filename_prefix, args.split)
+  objs=args.objects
+  robjs=args.robjects
+  cobjs=args.cobjects
+  sobjs=args.sobjects
+  lobjs=args.locobjects
+  img_name=""
+  for i,item in enumerate(zip(objs,robjs,cobjs,sobjs,lobjs)):
+    if i==len(objs)-1:
+      under_score=""
+    else:
+      under_score="_"
+    obj_str=str(item[0])
+    robj_str=str(item[1])
+    cobj_str=str(item[2])
+    sobj_str=str(item[3])
+    lobj_str=str(item[4])
+    img_name+=f"{obj_str}-{robj_str}-{cobj_str}-{sobj_str}-{lobj_str}{under_score}"
   img_template = '%s%%0%dd.png' % (prefix, num_digits)
+  img_template = '%s.png' % (img_name)
   scene_template = '%s%%0%dd.json' % (prefix, num_digits)
   blend_template = '%s%%0%dd.blend' % (prefix, num_digits)
   img_template = os.path.join(args.output_image_dir, img_template)
