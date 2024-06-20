@@ -6,7 +6,8 @@
     "mug":"teamug",
     "pentagon":"Pentagon",
     "heart":"Heart",
-    "cone":"Cone"
+    "cone":"Cone",
+    "pyramid":"Pyramid"
   },
   "colors": {
     "gray": [87, 87, 87],
