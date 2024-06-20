@@ -4,7 +4,8 @@
     "sphere": "Sphere",
     "cylinder": "SmoothCylinder",
     "mug":"teamug",
-    "pentagon":"Pentagon"
+    "pentagon":"Pentagon",
+    "heart":"Heart"
   },
   "colors": {
     "gray": [87, 87, 87],
