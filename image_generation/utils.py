@@ -112,6 +112,7 @@ def load_materials(material_dir):
   files with one material each. The file X.blend has a single NodeTree item named
   X; this NodeTree item must have a "Color" input that accepts an RGBA value.
   """
+
   for fn in os.listdir(material_dir):
     if not fn.endswith('.blend'): continue
     name = os.path.splitext(fn)[0]
@@ -140,6 +141,7 @@ def add_material(name, **properties):
   # Attach the new material to the active object
   # Make sure it doesn't already have materials
   obj = bpy.context.active_object
+  obj.data.materials.clear()
   assert len(obj.data.materials) == 0
   obj.data.materials.append(mat)
 

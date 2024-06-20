@@ -3,7 +3,8 @@
     "cube": "SmoothCube_v2",
     "sphere": "Sphere",
     "cylinder": "SmoothCylinder",
-    "mug":"teamug"
+    "mug":"teamug",
+    "pentagon":"Pentagon"
   },
   "colors": {
     "gray": [87, 87, 87],
