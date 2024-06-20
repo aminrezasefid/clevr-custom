@@ -2,7 +2,8 @@
   "shapes": {
     "cube": "SmoothCube_v2",
     "sphere": "Sphere",
-    "cylinder": "SmoothCylinder"
+    "cylinder": "SmoothCylinder",
+    "mug":"teamugblend"
   },
   "colors": {
     "gray": [87, 87, 87],
