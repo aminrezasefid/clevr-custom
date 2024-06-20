@@ -182,8 +182,7 @@ def main(args):
     cobj_str=str(item[2])
     sobj_str=str(item[3])
     lobj_str=str(item[4])
-    img_name+=f"{obj_str}-{robj_str}-{cobj_str}-{sobj_str}-{lobj_str}{under_score}"
-  img_template = '%s%%0%dd.png' % (prefix, num_digits)
+    img_name+="%s-%s-%s-%s-%s%s" % (obj_str,robj_str,cobj_str,sobj_str,lobj_str,under_score)
   img_template = '%s.png' % (img_name)
   scene_template = '%s%%0%dd.json' % (prefix, num_digits)
   blend_template = '%s%%0%dd.blend' % (prefix, num_digits)
@@ -200,7 +199,7 @@ def main(args):
   
   all_scene_paths = []
   for i in range(args.num_images):
-    img_path = img_template % (i + args.start_idx)
+    img_path = img_template
     scene_path = scene_template % (i + args.start_idx)
     all_scene_paths.append(scene_path)
     blend_path = None
