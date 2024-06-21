@@ -12,7 +12,8 @@
     "moon":"Moon",
     "cross":"Cross2",
     "snowflake":"Snowflake",
-    "leaf":"Leaf"
+    "leaf":"Leaf",
+    "arrow":"Arrow"
   },
   "colors": {
     "gray": [87, 87, 87],
