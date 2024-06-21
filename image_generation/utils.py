@@ -7,11 +7,24 @@
 
 import sys, random, os
 import bpy, bpy_extras
-
+from typing import Any, Callable, Dict, Generator, List, Literal, Optional, Set, Tuple
 
 """
 Some utility functions for interacting with Blender
 """
+IMPORT_FUNCTIONS: Dict[str, Callable] = {
+    "obj": bpy.ops.import_scene.obj,
+    "glb": bpy.ops.import_scene.gltf,
+    "gltf": bpy.ops.import_scene.gltf,
+    "usd": bpy.ops.import_scene.usd,
+    "fbx": bpy.ops.import_scene.fbx,
+    "stl": bpy.ops.import_mesh.stl,
+    "usda": bpy.ops.import_scene.usda,
+    "dae": bpy.ops.wm.collada_import,
+    "ply": bpy.ops.import_mesh.ply,
+    "abc": bpy.ops.wm.alembic_import,
+    "blend": bpy.ops.wm.append,
+}
 
 
 def extract_args(input_argv=None):
@@ -73,6 +86,42 @@ def set_layer(obj, layer_idx):
   for i in range(len(obj.layers)):
     obj.layers[i] = (i == layer_idx)
 
+def add_object_objaverse(object_dir, name, scale, loc, theta=0):
+  """
+  Load an object from a file. We assume that in the directory object_dir, there
+  is a file named "$name.blend" which contains a single object named "$name"
+  that has unit size and is centered at the origin.
+
+  - scale: scalar giving the size that the object should be in the scene
+  - loc: tuple (x, y) giving the coordinates on the ground plane where the
+    object should be placed.
+  """
+  # First figure out how many of this object are already in the scene so we can
+  # give the new object a unique name
+  count = 0
+  for obj in bpy.data.objects:
+    if obj.name.startswith(name):
+      count += 1
+  filename = os.path.join(object_dir,name)
+  filename = name
+  file_extension = filename.split(".")[-1].lower()
+  import_function = IMPORT_FUNCTIONS[file_extension]
+  if file_extension == "blend":
+        import_function(directory=filename, link=False)
+  elif file_extension in {"glb", "gltf"}:
+        import_function(filepath=filename, merge_vertices=True)
+  else:
+        import_function(filepath=filename)
+  # Give it a new name to avoid conflicts
+  new_name = '%s_%d' % (name, count)
+  bpy.data.objects[name].name = new_name
+
+  # Set the new object as active, then rotate, scale, and translate it
+  x, y = loc
+  bpy.context.scene.objects.active = bpy.data.objects[new_name]
+  bpy.context.object.rotation_euler[2] = theta
+  bpy.ops.transform.resize(value=(scale, scale, scale))
+  bpy.ops.transform.translate(value=(x, y, scale))
 
 def add_object(object_dir, name, scale, loc, theta=0):
   """
