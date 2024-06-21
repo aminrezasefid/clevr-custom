@@ -1,7 +1,8 @@
 {
     "shapes": {
       "axe":"Axe.glb",
-      "person":"Person.fbx"
+      "person":"Person.glb",
+      "bicycle":"Bicycle.glb"
     },
     "sizes": {
       "large": 0.7,
