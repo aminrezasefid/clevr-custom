@@ -69,6 +69,8 @@ def coords(s):
         raise argparse.ArgumentTypeError("Coordinates must be x,y,z")
 # Settings for objects
 parser.add_argument('--objects',nargs="+",default=["circle"],type=str,help="Types of objects in order")
+parser.add_argument('--sobjects',nargs="+",default=[0],type=float,help="Scale of objects in order")
+
 parser.add_argument('--locobjects',nargs="+",default=[(0,0)],type=coords,help="Location of objects in order")
 
 parser.add_argument('--objs_config',help="config file for object generation")
@@ -163,6 +165,7 @@ parser.add_argument('--render_tile_size', default=256, type=int,
 def main(args):
   
   objs=args.objects
+  sobjs=args.sobjects
   img_name=""
   for i,item in enumerate(zip(objs)):
     if i==len(objs)-1:
@@ -272,12 +275,13 @@ def add_objects( num_objects, args, camera):
     #scale=args.sobjects[i]
     obj=args.objects[i]
     loc=args.locobjects[i]
+    scale=args.sobjects[i]
     x = loc[0]
     y = loc[1]
     obj=properties['shapes'][obj]
     
     # Choose random orientation for the object.
-    utils.add_object_objaverse(args.shape_dir, obj, 1, (x, y), theta=0)
+    utils.add_object_objaverse(args.shape_dir, obj, scale, (x, y), theta=0)
   return objects, blender_objects
 
 
