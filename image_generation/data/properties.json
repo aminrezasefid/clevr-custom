@@ -16,7 +16,8 @@
     "arrow":"Arrow",
     "star":"Star",
     "torus":"Torus",
-    "pot":"Pot"
+    "pot":"Pot",
+    "cap":"Cap"
   },
   "colors": {
     "gray": [87, 87, 87],

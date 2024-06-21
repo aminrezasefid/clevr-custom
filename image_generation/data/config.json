@@ -1,5 +1,5 @@
 {
-  "objects": ["torus","pot","arrow","star"],
+  "objects": ["torus","pot","cap","star"],
   "cobjects": ["gray","red","blue","brown"],
   "robjects": [0,0,0,0],
   "sobjects": [0.7,0.7,0.7,0.7],
