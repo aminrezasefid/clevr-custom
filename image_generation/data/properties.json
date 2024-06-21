@@ -13,7 +13,8 @@
     "cross":"Cross2",
     "snowflake":"Snowflake",
     "leaf":"Leaf",
-    "arrow":"Arrow"
+    "arrow":"Arrow",
+    "star":"Star"
   },
   "colors": {
     "gray": [87, 87, 87],
