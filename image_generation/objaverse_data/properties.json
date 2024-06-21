@@ -1,7 +1,7 @@
 {
     "shapes": {
-      "Sketchfab_model":"Sketchfab_model.glb",
-      "person":"person.glb"
+      "axe":"Axe.glb",
+      "person":"Person.fbx"
     },
     "sizes": {
       "large": 0.7,
