@@ -1,4 +1,4 @@
 {
-    "objects": ["Sketchfab_model"],
-    "locobjects":[[0,0]]
+    "objects": ["Sketchfab_model","obj2"],
+    "locobjects":[[0,0],[3,3]]
   }
