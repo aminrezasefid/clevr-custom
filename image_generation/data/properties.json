@@ -14,7 +14,8 @@
     "snowflake":"Snowflake",
     "leaf":"Leaf",
     "arrow":"Arrow",
-    "star":"Star"
+    "star":"Star",
+    "torus":"Torus"
   },
   "colors": {
     "gray": [87, 87, 87],
