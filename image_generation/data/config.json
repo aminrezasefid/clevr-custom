@@ -1,5 +1,5 @@
 {
-  "objects": ["snowflake","moon","cross","cross2"],
+  "objects": ["snowflake","leaf","cross","diamond"],
   "cobjects": ["gray","red","blue","brown"],
   "robjects": [0,0,0,0],
   "sobjects": [0.7,0.7,0.7,0.7],

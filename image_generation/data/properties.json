@@ -10,9 +10,9 @@
     "pyramid":"Pyramid",
     "diamond":"Diamond",
     "moon":"Moon",
-    "cross":"Cross",
-    "cross2":"Cross2",
-    "snowflake":"Snowflake"
+    "cross":"Cross2",
+    "snowflake":"Snowflake",
+    "leaf":"Leaf"
   },
   "colors": {
     "gray": [87, 87, 87],
