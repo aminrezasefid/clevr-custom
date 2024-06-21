@@ -46,14 +46,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--base_scene_blendfile', default='data/base_scene.blend',
     help="Base blender file on which all scenes are based; includes " +
           "ground plane, lights, and camera.")
-parser.add_argument('--properties_json', default='objaverse/properties.json',
+parser.add_argument('--properties_json', default='objaverse_data/properties.json',
     help="JSON file defining objects, materials, sizes, and colors. " +
          "The \"colors\" field maps from CLEVR color names to RGB values; " +
          "The \"sizes\" field maps from CLEVR size names to scalars used to " +
          "rescale object models; the \"materials\" and \"shapes\" fields map " +
          "from CLEVR material and shape names to .blend files in the " +
          "--object_material_dir and --shape_dir directories respectively.")
-parser.add_argument('--shape_dir', default='objaverse/',
+parser.add_argument('--shape_dir', default='objaverse_data/',
     help="Directory where .blend files for object models are stored")
 # parser.add_argument('--material_dir', default='data/materials',
 #     help="Directory where .blend files for materials are stored")
@@ -270,7 +270,7 @@ def add_objects( num_objects, args, camera):
   objects = []
   blender_objects = []
   for i in range(num_objects):
-    scale=args.sobjects[i]
+    #scale=args.sobjects[i]
     obj=args.objects[i]
     loc=args.locobjects[i]
     x = loc[0]
@@ -278,7 +278,7 @@ def add_objects( num_objects, args, camera):
     obj=properties['shapes'][obj]
     
     # Choose random orientation for the object.
-    utils.add_object_objaverse(args.shape_dir, obj, scale, (x, y), theta=0)
+    utils.add_object_objaverse(args.shape_dir, obj, 1, (x, y), theta=0)
   return objects, blender_objects
 
 

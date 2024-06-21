@@ -7,7 +7,6 @@
 
 import sys, random, os
 import bpy, bpy_extras
-from typing import Any, Callable, Dict, Generator, List, Literal, Optional, Set, Tuple
 
 """
 Some utility functions for interacting with Blender

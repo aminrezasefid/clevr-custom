@@ -1,4 +1,10 @@
 {
-    "objects": ["Sketchfab_model"],
-    "locobjects":[[0,0]]
-  }
+    "shapes": {
+      "Sketchfab_model":"Sketchfab_model.glb"
+    },
+    "sizes": {
+      "large": 0.7,
+      "small": 0.35
+    }
+}
+  
