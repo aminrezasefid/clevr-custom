@@ -12,7 +12,7 @@ from typing import Any, Callable, Dict, Generator, List, Literal, Optional, Set,
 """
 Some utility functions for interacting with Blender
 """
-IMPORT_FUNCTIONS: Dict[str, Callable] = {
+IMPORT_FUNCTIONS = {
     "obj": bpy.ops.import_scene.obj,
     "glb": bpy.ops.import_scene.gltf,
     "gltf": bpy.ops.import_scene.gltf,
