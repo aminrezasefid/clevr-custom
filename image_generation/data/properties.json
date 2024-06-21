@@ -15,7 +15,8 @@
     "leaf":"Leaf",
     "arrow":"Arrow",
     "star":"Star",
-    "torus":"Torus"
+    "torus":"Torus",
+    "pot":"Pot"
   },
   "colors": {
     "gray": [87, 87, 87],
