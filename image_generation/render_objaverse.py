@@ -217,8 +217,9 @@ def render_scene(args,
       bpy.context.user_preferences.system.compute_device_type = 'CUDA'
       bpy.context.user_preferences.system.compute_device = 'CUDA_0'
     else:
-      cycles_prefs = bpy.context.user_preferences.addons['cycles'].preferences
+      cycles_prefs = bpy.context.preferences.addons['cycles'].preferences
       cycles_prefs.compute_device_type = 'CUDA'
+      cycles_prefs.compute_device = 'CUDA'
 
   # Some CYCLES-specific stuff
   bpy.data.worlds['World'].cycles.sample_as_light = True
