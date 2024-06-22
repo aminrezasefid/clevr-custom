@@ -1,12 +1,12 @@
 {
-    "shapes": {
-      "axe":"Axe.glb",
-      "person":"Person.glb",
-      "bicycle":"Bicycle.glb"
-    },
-    "sizes": {
-      "large": 0.7,
-      "small": 0.35
-    }
+  "shapes": {
+    "axe":"Axe.glb",
+    "person":"Person.glb",
+    "bicycle":"Bicycle.glb",
+    "car":"Car.fbx"
+  },
+  "sizes": {
+    "large": 0.7,
+    "small": 0.35
+  }
 }
-  
