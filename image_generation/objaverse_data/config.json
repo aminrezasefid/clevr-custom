@@ -1,5 +1,5 @@
 {
-  "objects": ["axe","car","bicycle"],
-  "sobjects":[0.5,1,1],
-  "locobjects":[[0,0],[2,2],[2,-3]]
+  "objects": ["motor","car","bicycle"],
+  "sobjects":[1,1,1],
+  "locobjects":[[-1,-1],[2,2],[2,-3]]
 }

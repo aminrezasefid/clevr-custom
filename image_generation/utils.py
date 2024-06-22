@@ -12,7 +12,7 @@ import bpy, bpy_extras
 Some utility functions for interacting with Blender
 """
 IMPORT_FUNCTIONS = {
-    "obj": bpy.ops.import_scene.obj,
+    "obj": bpy.ops.wm.obj_import,
     "glb": bpy.ops.import_scene.gltf,
     "gltf": bpy.ops.import_scene.gltf,
     "usd": bpy.ops.import_scene.usd,

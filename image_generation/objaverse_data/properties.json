@@ -3,7 +3,8 @@
     "axe":"Axe.glb",
     "person":"Person.glb",
     "bicycle":"Bicycle.glb",
-    "car":"Car.fbx"
+    "car":"Car.fbx",
+    "motor":"Motor.fbx"
   },
   "sizes": {
     "large": 0.7,
