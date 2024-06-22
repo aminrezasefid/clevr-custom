@@ -257,16 +257,18 @@ def render_scene(args,
   render_args.resolution_x = args.width
   render_args.resolution_y = args.height
   render_args.resolution_percentage = 100
-  render_args.tile_x = args.render_tile_size
-  render_args.tile_y = args.render_tile_size
+  #render_args.tile_x = args.render_tile_size
+  #render_args.tile_y = args.render_tile_size
   if args.use_gpu == 1:
     # Blender changed the API for enabling CUDA at some point
     if bpy.app.version < (2, 78, 0):
       bpy.context.user_preferences.system.compute_device_type = 'CUDA'
       bpy.context.user_preferences.system.compute_device = 'CUDA_0'
     else:
-      cycles_prefs = bpy.context.user_preferences.addons['cycles'].preferences
-      cycles_prefs.compute_device_type = 'CUDA'
+      bpy.context.preferences.addons["cycles"].preferences.get_devices()
+      bpy.context.preferences.addons[
+        "cycles"
+      ].preferences.compute_device_type = "CUDA"
 
   # Some CYCLES-specific stuff
   bpy.data.worlds['World'].cycles.sample_as_light = True
@@ -287,7 +289,7 @@ def render_scene(args,
   }
 
   # Put a plane on the ground so we can compute cardinal directions
-  bpy.ops.mesh.primitive_plane_add(radius=5)
+  bpy.ops.mesh.primitive_plane_add(size=5)
   plane = bpy.context.object
 
   def rand(L):
@@ -306,9 +308,9 @@ def render_scene(args,
   #bpy.data.objects['Camera'].location[2]=0.0
   camera = bpy.data.objects['Camera']
   plane_normal = plane.data.vertices[0].normal
-  cam_behind = camera.matrix_world.to_quaternion() * Vector((0, 0, -1))
-  cam_left = camera.matrix_world.to_quaternion() * Vector((-1, 0, 0))
-  cam_up = camera.matrix_world.to_quaternion() * Vector((0, 1, 0))
+  cam_behind = camera.matrix_world.to_quaternion() @ Vector((0, 0, -1))
+  cam_left = camera.matrix_world.to_quaternion() @ Vector((-1, 0, 0))
+  cam_up = camera.matrix_world.to_quaternion() @ Vector((0, 1, 0))
   plane_behind = (cam_behind - cam_behind.project(plane_normal)).normalized()
   plane_left = (cam_left - cam_left.project(plane_normal)).normalized()
   plane_up = cam_up.project(plane_normal).normalized()
@@ -473,7 +475,8 @@ def add_objects(scene_struct, num_objects, args, camera):
     })
 
   # Check that all objects are at least partially visible in the rendered image
-  all_visible = check_visibility(blender_objects, args.min_pixels_per_object)
+  all_visible= True
+  #all_visible = check_visibility(blender_objects, args.min_pixels_per_object)
   if not all_visible:
     # If any of the objects are fully occluded then start over; delete all
     # objects from the scene and place them all again.
@@ -550,12 +553,12 @@ def render_shadeless(blender_objects, path='flat.png'):
   # Cache the render args we are about to clobber
   old_filepath = render_args.filepath
   old_engine = render_args.engine
-  old_use_antialiasing = render_args.use_antialiasing
+  #old_use_antialiasing = render_args.use_antialiasing
 
   # Override some render settings to have flat shading
   render_args.filepath = path
-  render_args.engine = 'BLENDER_RENDER'
-  render_args.use_antialiasing = False
+  render_args.engine = 'BLENDER_EEVEE'
+  #render_args.use_antialiasing = False
 
   # Move the lights and ground to layer 2 so they don't render
   utils.set_layer(bpy.data.objects['Lamp_Key'], 2)
