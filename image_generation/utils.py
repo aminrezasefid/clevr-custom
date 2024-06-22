@@ -98,9 +98,9 @@ def add_object_objaverse(object_dir, name, scale, loc, theta=0):
   # First figure out how many of this object are already in the scene so we can
   # give the new object a unique name
   count = 0
-
+  obj_name=name.split(".")[0]
   for obj in bpy.data.objects:
-    if obj.name.startswith("obj"):
+    if obj.name.startswith(obj_name):
       count += 1
   filename = os.path.join(object_dir,name)
   file_extension = filename.split(".")[-1].lower()
@@ -113,15 +113,24 @@ def add_object_objaverse(object_dir, name, scale, loc, theta=0):
   else:
         import_function(filepath=filename)
   # Give it a new name to avoid conflicts
-  new_name = '%s_%d' % ("obj", count)
-  bpy.data.objects.values()[-1].name = new_name
-
+  new_name = '%s_%d' % (obj_name, count)
+  bpy.data.objects[obj_name].name = new_name
   # Set the new object as active, then rotate, scale, and translate it
   x, y = loc
+  xr,yr,zr=theta
+  import math
   bpy.context.view_layer.objects.active = bpy.data.objects[new_name]
-  bpy.context.object.rotation_euler[2] = theta
+  #bpy.data.objects[new_name].select_set(True)
+  
   bpy.ops.transform.resize(value=(scale, scale, scale))
   bpy.ops.transform.translate(value=(x, y, scale))
+  bpy.context.object.rotation_mode = "XYZ"
+  bpy.context.object.rotation_euler[0] = math.radians(xr)
+  bpy.context.object.rotation_euler[1] = math.radians(yr)
+  bpy.context.object.rotation_euler[2] = math.radians(zr)
+  #bpy.data.objects[new_name].select_set(False)
+  
+  
 
 def add_object(object_dir, name, scale, loc, theta=0):
   """

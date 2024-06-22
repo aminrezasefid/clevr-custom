@@ -63,14 +63,14 @@ parser.add_argument('--shape_dir', default='objaverse_data/',
 #          "for CLEVR-CoGenT.")
 def coords(s):
     try:
-        x, y = map(int, s.split(','))
-        return x, y
+        tup = map(int, s.split(','))
+        return tup
     except:
         raise argparse.ArgumentTypeError("Coordinates must be x,y,z")
 # Settings for objects
 parser.add_argument('--objects',nargs="+",default=["circle"],type=str,help="Types of objects in order")
 parser.add_argument('--sobjects',nargs="+",default=[0],type=float,help="Scale of objects in order")
-
+parser.add_argument('--robjects',nargs="+",default=[(0,0,0)],type=coords,help="rotate of objects in order")
 parser.add_argument('--locobjects',nargs="+",default=[(0,0)],type=coords,help="Location of objects in order")
 
 parser.add_argument('--objs_config',help="config file for object generation")
@@ -236,7 +236,7 @@ def render_scene(args,
   # This will give ground-truth information about the scene and its objects
 
   # Put a plane on the ground so we can compute cardinal directions
-  bpy.ops.mesh.primitive_plane_add(size=5)
+  bpy.ops.mesh.primitive_plane_add(size=10)
   plane = bpy.context.object
 
   def rand(L):
@@ -280,12 +280,13 @@ def add_objects( num_objects, args, camera):
     obj=args.objects[i]
     loc=args.locobjects[i]
     scale=args.sobjects[i]
+    theta=args.robjects[i]
     x = loc[0]
     y = loc[1]
     obj=properties['shapes'][obj]
     
     # Choose random orientation for the object.
-    utils.add_object_objaverse(args.shape_dir, obj, scale, (x, y), theta=0)
+    utils.add_object_objaverse(args.shape_dir, obj, scale, (x, y), theta=theta)
   return objects, blender_objects
 
 
