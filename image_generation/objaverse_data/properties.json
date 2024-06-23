@@ -5,7 +5,8 @@
     "bicycle":"Bicycle.glb",
     "car":"Car.fbx",
     "motor":"Motor.fbx",
-    "airplane":"Airplane.obj"
+    "airplane":"Airplane.obj",
+    "bus":"Bus.glb"
   },
   "sizes": {
     "large": 0.7,
