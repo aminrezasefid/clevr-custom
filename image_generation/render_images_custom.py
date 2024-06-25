@@ -63,7 +63,8 @@ parser.add_argument('--shape_color_combos_json', default=None,
          "for CLEVR-CoGenT.")
 def coords(s):
     try:
-        x, y = map(int, s.split(','))
+        print(s)
+        x, y = map(float, s.split(','))
         return x, y
     except:
         raise argparse.ArgumentTypeError("Coordinates must be x,y,z")

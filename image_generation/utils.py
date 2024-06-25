@@ -107,6 +107,8 @@ def add_object_objaverse(object_dir, name, scale, loc, theta=0):
   import_function = IMPORT_FUNCTIONS[file_extension]
   print(filename)
   if file_extension == "blend":
+        filename=os.path.join(object_dir, '%s.blend' % obj_name, 'Object', obj_name)
+        #import_function(directory=filename)
         import_function(directory=filename, link=False)
   elif file_extension in {"glb", "gltf"}:
         import_function(filepath=filename, merge_vertices=True)

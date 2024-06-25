@@ -1,7 +1,7 @@
 {
-  "objects": ["torus","pot","cap","torus"],
-  "cobjects": ["gray","red","blue","brown"],
-  "robjects": [0,0,0,0],
-  "sobjects": [0.7,0.7,0.7,0.7],
-  "locobjects":[[-3.5,3.5],[3.5,3.5],[-3.5,-3.5],[3.5,-3.5]]
+  "objects": ["cylinder"],
+  "cobjects": ["blue"],
+  "robjects": [0,0,0],
+  "sobjects": [1.2],
+  "locobjects":[[0,1.5]]
 }
