@@ -29,7 +29,8 @@
     "tie":"Tie.glb",
     "suitcase":"Suitcase.glb",
     "ski":"Ski.glb",
-    "snowboard":"Snowboard.blend"
+    "snowboard":"Snowboard.blend",
+    "skateboard":"Skateboard.fbx"
   },
   "sizes": {
     "large": 0.7,
