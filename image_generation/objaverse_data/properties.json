@@ -30,7 +30,21 @@
     "suitcase":"Suitcase.glb",
     "ski":"Ski.glb",
     "snowboard":"Snowboard.blend",
-    "skateboard":"Skateboard.fbx"
+    "skateboard":"Skateboard.fbx",
+    "surfboard":"Surfboard.glb",
+    "bottle":"Bottle.glb",
+    "plate":"Plate.blend",
+    "cup":"Cup.glb",
+    "fork":"Fork.glb",
+    "knife":"Knife.blend",
+    "spoon":"Spoon.glb",
+    "bowl":"Bowl.blend",
+    "banana":"Banana.glb",
+    "apple":"Apple.blend",
+    "sandwich":"Sandwich.blend",
+    "orange":"Orange.blend",
+    "broccoli":"Broccoli.glb",
+    "carrot":"Carrot.blend"
   },
   "sizes": {
     "large": 0.7,
