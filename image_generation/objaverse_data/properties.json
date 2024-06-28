@@ -44,7 +44,14 @@
     "sandwich":"Sandwich.blend",
     "orange":"Orange.blend",
     "broccoli":"Broccoli.glb",
-    "carrot":"Carrot.blend"
+    "carrot":"Carrot.blend",
+    "pizza":"Pizza.blend",
+    "donut":"Donut.glb",
+    "cake":"Cake.glb",
+    "chair":"Chair.glb",
+    "couch":"Couch.glb",
+    "bed":"Bed.glb",
+    "mirror":"Mirror.glb"
   },
   "sizes": {
     "large": 0.7,
