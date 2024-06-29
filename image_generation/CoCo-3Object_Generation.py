@@ -7,7 +7,7 @@ with open("objaverse_data/properties.json", 'r') as f:
 with open("CoCo_Configs/Scales.json") as f:
     scales=json.load(f)
 shapes=list(properties["shapes"].keys())
-#shapes=["zebra","boat","car"]
+shapes=["zebra","boat","car"]
 for shape1 in shapes:
     for shape2 in shapes:
         for shape3 in shapes:
