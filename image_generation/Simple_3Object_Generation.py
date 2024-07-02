@@ -14,10 +14,10 @@ for shape1 in shapes:
             color="blue"
             arg_shapes=shape1+" "+shape2+" "+shape3
             arg_colors=color+" "+color+" "+color
-            arg_scales="1 1 1"
+            arg_scales="0.7 1.8 0.7"
             command="../blender-4.1.1-linux-x64/blender --background  --python render_images_custom.py -- --use_gpu 1  --objects %s\
                 --cobjects %s --robjects 0 0 0 --sobjects %s --objs_config data/ThreeObjectSameColorSameSize.json  --num_images 1\
-                --margin 0.01 --width 1024 --height 1024 --output_image_dir ../output/Three-Object-Same-Color-Same/" % (arg_shapes,arg_colors,arg_scales)
+                --margin 0.01 --width 512 --height 512 --output_image_dir ../output/Three-Object-Same-Color-MBig/" % (arg_shapes,arg_colors,arg_scales)
             command=list(filter(None,command.split(" ")))
             new_command=command[:5]
             new_command=" ".join(command)
