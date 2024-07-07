@@ -46,7 +46,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--base_scene_blendfile', default='data/base_scene.blend',
     help="Base blender file on which all scenes are based; includes " +
           "ground plane, lights, and camera.")
-parser.add_argument('--properties_json', default='objaverse_data/properties.json',
+parser.add_argument('--properties_json', default='CoCo_Configs/properties.json',
     help="JSON file defining objects, materials, sizes, and colors. " +
          "The \"colors\" field maps from CLEVR color names to RGB values; " +
          "The \"sizes\" field maps from CLEVR size names to scalars used to " +
