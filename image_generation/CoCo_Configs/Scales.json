@@ -10,11 +10,12 @@
     "cat":1.4,
     "couch":1.2,
     "elephant":0.8,
-    "bag":1.4,
+    "bag":1.6,
     "hat":1.2,
     "keyboard":1.3,
     "motor":0.7,
     "ski":0.7,
     "train":0.5,
-    "truck":0.5
+    "truck":0.5,
+    "scissors":1.4
 }
