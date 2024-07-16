@@ -24,16 +24,16 @@ flat_shapes=["axe","banana","bed","clock","donut","fork","keyboard",
 "pizza","plate","toilet","spoon","ski","snowboard"]
 lean_shapes=["cup","hat","laptop","suitcase"]
 
-config_file="ThreeObjectMBig.json"
-output_folder="CoCo-ThreeObject-Middle-Big"
+config_file="ThreeObjectBR.json"
+output_folder="CoCo-ThreeObject-BR-Big"
 
 for shape_name in shapes:
     shape1,shape2,shape3=shape_name.split("\n")[0].split(" ")
     arg_shapes=shape1+" "+shape2+" "+shape3
 
-    scale1=0.73
-    scale2=2.5
-    scale3=0.73
+    scale1=0.8
+    scale2=0.8
+    scale3=2.5
     
     rotate1="270,0,0"
     rotate2="270,0,0"
