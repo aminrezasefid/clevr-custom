@@ -25,16 +25,16 @@ flat_shapes=["axe","banana","bed","clock","donut","fork","keyboard",
 lean_shapes=["cup","hat","laptop","suitcase"]
 
 config_file="FourObject.json"
-output_folder="CoCo-FourObject-Same-Size"
+output_folder="CoCo-FourObject-Middle-Big"
 
 for line in shape_names:
     print(line.split("\n")[0])
     shape1,shape2,shape3,shape4=line.split("\n")[0].split(" ")
     arg_shapes=shape1+" "+shape2+" "+shape3+" "+shape4
-    scale1=1
-    scale2=1
-    scale3=1
-    scale4=1
+    scale1=0.73
+    scale2=2.3
+    scale3=0.73
+    scale4=0.73
 
     rotate1="270,0,0"
     rotate2="270,0,0"
