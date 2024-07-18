@@ -4,15 +4,15 @@ import subprocess
 import json
 import random
 random.seed(42)
-object_name_file="CoCo-3Object-Names.csv"
-remainder_name_file="CoCo-3Object-Names-remainder.csv"
+object_name_file="remainder.csv"
+#remainder_name_file="CoCo-3Object-Names-remainder.csv"
 
 df=pd.read_csv(object_name_file)
 
-idx_list=random.sample(range(len(df)),8000)
+#idx_list=random.sample(range(len(df)),8000)
 
-shapes=df.iloc[idx_list]["ObjectNames"]
-df.drop(idx_list).to_csv(remainder_name_file,index=False)
+shapes=df["ObjectNames"]
+#df.drop(idx_list).to_csv(remainder_name_file,index=False)
 with open("CoCo_Configs/properties.json", 'r') as f:
     properties = json.load(f)
 with open("CoCo_Configs/Scales.json") as f:

@@ -24,17 +24,17 @@ flat_shapes=["axe","banana","bed","clock","donut","fork","keyboard",
 "pizza","plate","toilet","spoon","ski","snowboard"]
 lean_shapes=["cup","hat","laptop","suitcase"]
 
-config_file="FourObject.json"
-output_folder="CoCo-FourObject-Middle-Big"
+config_file="FourObjectDL.json"
+output_folder="CoCo-FourObject-DLBig"
 
 for line in shape_names:
     print(line.split("\n")[0])
     shape1,shape2,shape3,shape4=line.split("\n")[0].split(" ")
     arg_shapes=shape1+" "+shape2+" "+shape3+" "+shape4
     scale1=0.73
-    scale2=2.3
+    scale2=0.73
     scale3=0.73
-    scale4=0.73
+    scale4=2.3
 
     rotate1="270,0,0"
     rotate2="270,0,0"
@@ -71,7 +71,7 @@ for line in shape_names:
     arg_scales="%f %f %f %f" % (scale1,scale2,scale3,scale4)
     command=f"../blender-4.1.1-linux-x64/blender --background  --python render_objaverse.py -- --use_gpu 1  --objects %s\
         --robjects %s %s %s %s --sobjects %s --objs_config CoCo_Configs/{config_file} \
-        --width 512 --height 512 --cam_x 0 --cam_y 0 --cam_z 12 --output_image_dir ../output/{output_folder}/" % (arg_shapes,rotate1,rotate2,rotate3,rotate4,arg_scales)
+        --width 512 --height 512 --cam_x 0 --cam_y 0 --cam_z 15 --output_image_dir ../output/{output_folder}/" % (arg_shapes,rotate1,rotate2,rotate3,rotate4,arg_scales)
     command=list(filter(None,command.split(" ")))
     new_command=command[:5]
     new_command=" ".join(command)
